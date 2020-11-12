@@ -1,0 +1,15 @@
+{
+  "name": "vendor_name/apiweb",
+  "description": "description",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Alfredo",
+      "email": "email@example.com"
+    }
+  ],
+  "require": {
+    "firebase/php-jwt": "^5.2"
+  }
+}
