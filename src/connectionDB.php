@@ -52,4 +52,39 @@ class conexionServer
         $this -> statment ->bindParam(":PASSW", $password, PDO::PARAM_STR);
         return $this->statment->execute();
     }
+
+    /**
+     * Registra a un alumno en la base de datos del sistema
+     * @param $ncontrol NumeroDeControl El numero de control (matricula) del alumno.
+     * @param $nombre Nombre Nombre(s) del alumno
+     * @param $apellidos Apellidos Apellidos del alumno
+     * @param $email Email Correo electronico del alumno
+     * @param $pass Constraseña Contraseña del alumno
+     * @return boolean
+     */
+    public function signUpAlumno($ncontrol, $nombre, $apellidos, $email, $pass){
+        $sqlquery = "INSERT INTO alumno(ncontrol, nombre, apellidos, email, pass) VALUES (:NCONTROL, :NOMBRE, :APELLIDOS, :EMAIL, :PASS)";
+        $statement = $this ->conexion->prepare($sqlquery);
+        $statement->bindParam(":NCONTROL", $ncontrol);
+        $statement->bindParam(":NOMBRE", $nombre);
+        $statement->bindParam(":APELLIDOS", $apellidos);
+        $statement->bindParam(":EMAIL", $email);
+        $statement->bindParam(":PASS", $pass);
+        return $statement -> execute();
+    }
+
+    /**
+     * Revisar la existencia del correo electronico del alumno
+     * @param $email Email Correo electronico del alumno a buscar;
+     * @return bool True si el registro fue encontrado, false si no fue encontrado;
+     */
+
+    public function checkExistenceAlumno($email){
+        $sqlquery = "SELECT email FROM alumno WHERE email = :EMAIL";
+        $statement = $this -> conexion ->prepare($sqlquery);
+        $statement ->bindParam(":EMAIL", $email, PDO::PARAM_STR);
+        $statement -> execute();
+        $dato = $statement ->fetch(PDO::FETCH_ASSOC);
+        return $dato ? true : false;
+    }
 }
