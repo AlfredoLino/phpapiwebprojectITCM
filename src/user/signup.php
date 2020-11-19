@@ -6,32 +6,17 @@ use Firebase\JWT\JWT;
  *
 */
 include_once "../connectionDB.php";
+include_once "../validations/camps_validation.php";
+
 $dbconnection = new conexionServer();
 $_POST = json_decode(file_get_contents('php://input'), true);
 
-/**
- * Definimos los campos que necesitamos en un array para verificar si existen en la variable global $_POST
- */
+$validReq = Validations::checkCampsAlumno($_POST);
 
-$defined_keys = array("ncontrol","nombre", "apellidos", "email", "pass");
-
-/**
- * Variable booleana para revisar si los datos son validos.
- */
-
-$validReq = true;
-
-/**
- * Iteramos sobre la variavle "definded_keys" para ver si uno falta o está en mal forma.
- */
-foreach($defined_keys as $key){
-    if(!isset($_POST[$key]) || $_POST[$key] == ""){
-        $validReq = false;
-    }
-}
 /**
  * Establecemos el arbol de decision segun el estado que arrojaron los datos
  */
+
 if($validReq) {
     /**
      * Comprobamos si el correo no esxite ya en la base de datos

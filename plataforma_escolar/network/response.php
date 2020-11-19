@@ -34,6 +34,10 @@ class response {
         return $this->response;
     }
 
+    public static function error400(){
+        return array('status'=>"error", 'result' => array("error_id" => "400", 'error_msg' => 'Datos enviados incompletos o con formato incorrecto'));
+    }
+
     public function error_500($msg = "Error del servidor") {   //
         $this->response['status'] = 'error';
         $this->response['result'] = array(

@@ -41,7 +41,7 @@ class conexionServer
      * @param $password Password Contraseña encriptada del profesor
      * @return bool Devuelve si la operacion fue exitosa si o no.
      */
-    public function signinProfesor($nombre, $apellidos, $email, $celular, $password){
+    public function signUpProfesor($nombre, $apellidos, $email, $celular, $password){
 
         $this -> sqlquery = "INSERT INTO profesor(nombre, apellidos, email, celular, pass) VALUES (:NOMBRE, :APELLIDOS, :EMAIL, :CEL, :PASSW)";
         $this -> statment = $this ->conexion ->prepare($this->sqlquery);
@@ -51,6 +51,13 @@ class conexionServer
         $this -> statment ->bindParam(":CEL", $celular, PDO::PARAM_STR);
         $this -> statment ->bindParam(":PASSW", $password, PDO::PARAM_STR);
         return $this->statment->execute();
+    }
+
+    public function checkProfessor($emailProfessor){
+        $sqlQuery = "SELECT email FROM profesor WHERE email = :EMAIL";
+        $statement = $this->conexion->prepare($sqlQuery);
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_ASSOC) ? true : false;
     }
 
     /**
