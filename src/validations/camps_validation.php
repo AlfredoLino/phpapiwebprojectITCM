@@ -23,7 +23,7 @@ class Validations{
      * @return bool
      */
     public static function checkCampsProfessor($campos){
-        $defined_keys = array("nombre", "apellidos", "email", "celular", "pass");
+        $defined_keys = array("email", "password");
         $validReq = true;
         /**
          * Iteramos sobre la variavle "definded_keys" para ver si uno falta o está en mal forma.

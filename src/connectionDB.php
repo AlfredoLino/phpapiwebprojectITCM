@@ -23,7 +23,7 @@ class conexionServer
          * @var
          */
         try {
-            $this->conexion = new PDO("mysql:host=localhost; dbname=web_api", "root", "");
+            $this->conexion = new PDO("mysql:host=localhost; dbname=webdatabase", "root", "");
             //$conexion -> setAttribute(PDO::ATTR_ERRMOD, PDO::ERRMOD_EXCEPTION);
             $this->conexion->exec("set character set utf8");
         } catch (Exception $th) {
@@ -80,12 +80,20 @@ class conexionServer
         return $statement -> execute();
     }
 
+    public function getProfessor($email){
+        $sqlquery = "SELECT email, password FROM profesor WHERE email = :EMAIL";
+        $statement = $this -> conexion ->prepare($sqlquery);
+        $statement ->bindParam(":EMAIL", $email, PDO::PARAM_STR);
+        $statement ->execute();
+        
+        return $statement;
+    }
+
     /**
      * Revisar la existencia del correo electronico del alumno
      * @param $email Email Correo electronico del alumno a buscar;
      * @return bool True si el registro fue encontrado, false si no fue encontrado;
      */
-
     public function checkExistenceAlumno($email){
         $sqlquery = "SELECT email FROM alumno WHERE email = :EMAIL";
         $statement = $this -> conexion ->prepare($sqlquery);
