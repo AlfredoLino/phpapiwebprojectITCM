@@ -89,6 +89,14 @@ class conexionServer
         return $statement;
     }
 
+    public function getAlumno($email){
+        $sqlquery = "SELECT email, password FROM alumno WHERE email = :EMAIL";
+        $statement = $this -> conexion->prepare($sqlquery);
+        $statement ->bindParam(":EMAIL", $email, PDO::PARAM_STR);
+        $statement -> execute();
+        return $statement;
+    }
+
     /**
      * Revisar la existencia del correo electronico del alumno
      * @param $email Email Correo electronico del alumno a buscar;

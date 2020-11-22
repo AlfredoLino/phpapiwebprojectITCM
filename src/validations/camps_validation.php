@@ -5,7 +5,7 @@ class Validations{
      * @return bool Si pasa o no la validacion
      */
     public static function checkCampsAlumno($campos){
-        $defined_keys = array("ncontrol","nombre", "apellidos", "email", "pass");
+        $defined_keys = array("email", "password");
         $validReq = true;
         /**
          * Iteramos sobre la variavle "definded_keys" para ver si uno falta o está en mal forma.

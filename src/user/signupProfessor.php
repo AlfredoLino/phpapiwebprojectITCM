@@ -16,12 +16,17 @@ if($validReq){
     $email = $_POST['email'];
     $pass = $_POST['password'];
     $data = $conexion->getProfessor($email)->fetch(PDO::FETCH_ASSOC);
-    if($data['password'] == $pass && $data['email'] == $email){
-        $token = JWT::encode(array("email"=>$email), 'secretkey');
-        echo json_encode(array("status" => 200, "token"=>$token));
+    if($data){
+        if($data['password'] == $pass && $data['email'] == $email){
+            $token = JWT::encode(array("email"=>$email), 'secretkey');
+            echo json_encode(array("status" => 200, "token"=>$token));
+        }else{
+            echo response::error401();
+        }
     }else{
-        echo "datos incorrectos";
+        echo response::error401();
     }
+    
 }else{
     echo json_encode(response::error400());
 }
