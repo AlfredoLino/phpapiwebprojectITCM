@@ -35,5 +35,21 @@ class Validations{
         }
         return $validReq;
     }
+    /**
+     * @param $campos array asociativo con los campos a verificar
+     */
+    public static function checkAsignacion($campos){
+        $defined_keys = array("grupo", "alumno");
+        $validReq = true;
+        /**
+         * Iteramos sobre la variavle "definded_keys" para ver si uno falta o está en mal forma.
+         */
+        foreach($defined_keys as $key){
+            if(!isset($campos[$key]) || $campos[$key] == ""){
+                $validReq = false;
+            }
+        }
+        return $validReq;
+    }
 };
 

@@ -1,7 +1,6 @@
 <?php
 
 use Firebase\JWT\JWT;
-
 include_once "../validations/camps_validation.php";
 include_once "../../plataforma_escolar/network/response.php";
 include_once "../connectionDB.php";
@@ -21,12 +20,11 @@ if($validReq){
             $token = JWT::encode(array("email"=>$email), 'secretkey');
             echo json_encode(array("status" => 200, "token"=>$token));
         }else{
-            echo response::error401();
+            echo json_encode(response::error401());
         }
     }else{
-        echo response::error401();
+        echo json_encode(response::error401());
     }
-    
 }else{
     echo json_encode(response::error400());
 }

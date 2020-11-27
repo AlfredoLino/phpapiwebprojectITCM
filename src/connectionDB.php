@@ -23,7 +23,7 @@ class conexionServer
          * @var
          */
         try {
-            $this->conexion = new PDO("mysql:host=localhost; dbname=webdatabase", "root", "");
+            $this->conexion = new PDO("mysql:host=localhost; dbname=web_api", "root", "");
             //$conexion -> setAttribute(PDO::ATTR_ERRMOD, PDO::ERRMOD_EXCEPTION);
             $this->conexion->exec("set character set utf8");
         } catch (Exception $th) {
@@ -110,4 +110,13 @@ class conexionServer
         $dato = $statement ->fetch(PDO::FETCH_ASSOC);
         return $dato ? true : false;
     }
+
+    public function insertAsignacion($grupo, $alumno){
+        $sqlQuery = 'INSERT INTO asignacion(grupo, alumno) VALUES (:IDGRUPO, :IDALUMNO)';
+        $statement = $this->conexion->prepare($sqlQuery);
+        $statement->bindParam(':IDGRUPO', $grupo, PDO::PARAM_INT);
+        $statement->bindParam(':IDALUMNO', $alumno, PDO::PARAM_INT);
+        $statement->execute();
+    }
+    
 }
