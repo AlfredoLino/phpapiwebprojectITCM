@@ -110,6 +110,11 @@ class conexionServer
         $dato = $statement ->fetch(PDO::FETCH_ASSOC);
         return $dato ? true : false;
     }
+    /**
+     * @param IDgrupo Id del grupo
+     * @param IDalumno Id del alumno
+     * @return void
+     */
 
     public function insertAsignacion($grupo, $alumno){
         $sqlQuery = 'INSERT INTO asignacion(grupo, alumno) VALUES (:IDGRUPO, :IDALUMNO)';
@@ -117,6 +122,19 @@ class conexionServer
         $statement->bindParam(':IDGRUPO', $grupo, PDO::PARAM_INT);
         $statement->bindParam(':IDALUMNO', $alumno, PDO::PARAM_INT);
         $statement->execute();
+    }
+    /**
+     * Actualiza el email del alumno que posea el ID mandado
+     * @param IDalumno $alumno numero de control del alumno
+     * @param Email_Nuevo $email nuevo email del alumno
+     * @return void
+     */
+    public function patchEmailAlumno($alumno, $email){
+        $sqlQuery = "UPDATE alumno SET email = :EMAIL WHERE ncontrol = :ID";
+        $statement = $this->conexion->prepare($sqlQuery);
+        $statement->bindParam(":EMAIL", $email);
+        $statement->bindParam(":ID", $alumno);
+        $statement -> execute();
     }
     
 }

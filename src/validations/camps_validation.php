@@ -51,5 +51,19 @@ class Validations{
         }
         return $validReq;
     }
+
+    public static function checkEmailPatch($campos){
+        $defined_keys = array("alumno", "email");
+        $validReq = true;
+        /**
+         * Iteramos sobre la variavle "definded_keys" para ver si uno falta o está en mal forma.
+         */
+        foreach($defined_keys as $key){
+            if(!isset($campos[$key]) || $campos[$key] == ""){
+                $validReq = false;
+            }
+        }
+        return $validReq;
+    }
 };
 

@@ -58,4 +58,11 @@ class response {
         );
         return $this->response;
     }
+
+    public static function succes201($msg){
+        return array(
+            "status" => 201,
+            "message" => $msg
+        );
+    }
 }
