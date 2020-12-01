@@ -52,7 +52,12 @@ class conexionServer
         $this -> statment ->bindParam(":PASSW", $password, PDO::PARAM_STR);
         return $this->statment->execute();
     }
-
+    /**
+     * Revisa si ese correo ya está en la base de datos del sistema.
+     * @author Alfredo Lino Mendoza
+     * @param EmailProfesor Correo electronico del profesor a buscar
+     * @return boolean si el profesor fue encontrado, verdadero, si no, falso.
+     */
     public function checkProfessor($emailProfessor){
         $sqlQuery = "SELECT email FROM profesor WHERE email = :EMAIL";
         $statement = $this->conexion->prepare($sqlQuery);
@@ -79,7 +84,9 @@ class conexionServer
         $statement->bindParam(":PASS", $pass);
         return $statement -> execute();
     }
-
+    /**
+     * ?
+     */
     public function getProfessor($email){
         $sqlquery = "SELECT email, password FROM profesor WHERE email = :EMAIL";
         $statement = $this -> conexion ->prepare($sqlquery);
@@ -88,6 +95,10 @@ class conexionServer
         
         return $statement;
     }
+    /**
+     * @param Email Correo electronico del alumno a buscar.
+     * @return bool
+     */
 
     public function getAlumno($email){
         $sqlquery = "SELECT email, password FROM alumno WHERE email = :EMAIL";
