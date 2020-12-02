@@ -147,5 +147,61 @@ class conexionServer
         $statement->bindParam(":ID", $alumno);
         $statement -> execute();
     }
+
+    /**
+     * Actualiza password del alumno que posea el ID mandado
+     * @param IDalumno $alumno numero de control del alumno
+     * @param Password password nuevo email del alumno
+     * @return void
+     */
+    public function patchPasswordAlumno($alumno, $password){
+        $sqlQuery = "UPDATE alumno SET password = :PASSWORD WHERE ncontrol = :ID";
+        $statement = $this->conexion->prepare($sqlQuery);
+        $statement->bindParam(":PASSWORD", $password);
+        $statement->bindParam(":ID", $alumno);
+        $statement -> execute();
+    }
+
+    /**
+     * Actualiza Email del profesor que posea el ID mandado
+     * @param IDprofesor $profesor numero de control del alumno
+     * @param Email email nuevo email del alumno
+     * @return void
+     */
+    public function patchEmailProfessor($profesor, $email){
+        $sqlQuery = "UPDATE alumno SET email = :EMAIL WHERE _id = :ID";
+        $statement = $this->conexion->prepare($sqlQuery);
+        $statement->bindParam(":EMAIL", $email);
+        $statement->bindParam(":ID", $profesor);
+        $statement -> execute();
+    }
+
+    /**
+     * Actualiza password del profesor que posea el ID mandado
+     * @param IDalumno $profesor numero de control del alumno
+     * @param Password password nuevo email del alumno
+     * @return void
+     */
     
+    public function patchPasswordProfessor($profesor, $password){
+        $sqlQuery = "UPDATE alumno SET password = :PASSWORD WHERE _id = :ID";
+        $statement = $this->conexion->prepare($sqlQuery);
+        $statement->bindParam(":PASSWORD", $password);
+        $statement->bindParam(":ID", $profesor);
+        $statement -> execute();
+    }
+
+    /**
+     * Actualiza Email del profesor que posea el ID mandado
+     * @param IDalumno $profesor numero de control del profesor
+     * @param Celular celular nuevo celular del profesor
+     * @return void
+     */
+    public function patchCelularProfessor($profesor, $celular){
+        $sqlQuery = "UPDATE alumno SET celular = :CEL WHERE _id = :ID";
+        $statement = $this->conexion->prepare($sqlQuery);
+        $statement->bindParam(":CEL", $celular);
+        $statement->bindParam(":ID", $profesor);
+        $statement -> execute();
+    }
 }

@@ -10,12 +10,12 @@ $_POST = json_decode(file_get_contents('php://input'), true);
 $token = getallheaders()['Authorization'];
 $conexion = new conexionServer();
 
-if(Validations::checkEmailPatch($_POST)){
+if(Validations::checkPassPatch($_POST)){
     $password = $_POST['password'];
     try {
         $valid = JWT::decode($token, 'secretkey',array('HS256'));
         if($valid){
-            $conexion ->patchEmailAlumno($_POST['alumno'], $password);
+            $conexion ->patchPasswordAlumno($_POST['alumno'], $password);
             echo json_encode(
                 response::succes201("El pasword se ha actualizado a $password de manera exitosa")
             );
