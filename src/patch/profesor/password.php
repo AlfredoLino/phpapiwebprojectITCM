@@ -10,23 +10,17 @@ $_POST = json_decode(file_get_contents('php://input'), true);
 $token = getallheaders()['Authorization'];
 $conexion = new conexionServer();
 
-if (Validations::checkProfesorEmailPatch($_POST)) {
+if (Validations::checkProfesorPasswordPatch($_POST)) {
     try {
         $valid = JWT::decode($token, 'secretkey', array('HS256'));
         if ($valid) {
-            $conexion->patchEmailProfessor();
+            $conexion->patchPasswordProfessor();
         } else {
             echo json_encode(response::error401());
         }
-        
     } catch (Exception $error) {
         echo json_encode($error);
     }
 } else {
     echo json_encode(response::error401());
 }
-
-
-
-
-

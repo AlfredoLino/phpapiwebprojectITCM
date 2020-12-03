@@ -114,5 +114,24 @@ class Validations{
         }
         return $validReq;
     }
+
+        /**
+     * @author Alfredo Lino Mendoza
+     * @param Campos array con el nombre de los campos a validar.
+     * @return bool true si es correcto y false si es incorrecto
+     */
+    public static function checkProfesorPasswordPatch($campos){
+        $defined_keys = array("profesor", "password");
+        $validReq = true;
+        /**
+         * Iteramos sobre la variavle "definded_keys" para ver si uno falta o está en mal forma.
+         */
+        foreach($defined_keys as $key){
+            if(!isset($campos[$key]) || $campos[$key] == ""){
+                $validReq = false;
+            }
+        }
+        return $validReq;
+    }
 };
 

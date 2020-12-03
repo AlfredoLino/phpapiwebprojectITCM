@@ -204,4 +204,29 @@ class conexionServer
         $statement->bindParam(":ID", $profesor);
         $statement -> execute();
     }
+    
+    /**
+     * @author Alfredo Lino Mendoza
+     * @param Alumno Id del alumno
+     * @param Grupo id del grupo
+     * @param Calificacion Es la calificacion nueva del alumno
+     * @return Bool
+     */
+
+    public function patchCalif($alumno, $grupo, $calif){
+        $sqlQuery = "UPDATE asignacion SET calificacion = :CALIF WHERE grupo = :IDGRUPO AND alumno = :IDALUMNO";
+        $statement = $this ->conexion ->prepare($sqlQuery);
+        $statement->bindValue(':CALIF', $calif);
+        $statement->bindValue(':IDGRUPO', $grupo);
+        $statement->bindValue(':IDALUMNO', $alumno);
+        return $statement->execute();
+    }
+
+    public function getSignatures(){
+        $sqlQuery = "SELECT alumno.ncontrol, asignacion.grupo, asignacion.calificacion FROM profesor JOIN grupo ON profesor._id = grupo.profesor JOIN asignacion ON grupo._id = asignacion.grupo JOIN alumno ON asignacion.alumno = alumno.ncontrol";
+        $statement = $this->conexion->prepare($sqlQuery);
+        $statement->execute();
+        return $statement;
+
+    }
 }
